@@ -12,7 +12,7 @@ export class CourseService {
         @InjectRepository(Course)
         private readonly courseRepository: Repository<Course>,
         private readonly jwtService: JwtService,
-    ) {}
+    ) {};
 
     async addCourse(accessToken: string, dto: CourseDto) {
         try {
@@ -62,7 +62,7 @@ export class CourseService {
         }
     };
 
-    async getCourseInfo(courseId: number) {
+    async getCourseInfo(courseId: number): Promise<string> {
         try {
             const data = await this.courseRepository.findOne({
                 where: {
@@ -76,7 +76,7 @@ export class CourseService {
         }
     };
 
-    async deleteCourse(accessToken: string, courseId: number) {
+    async deleteCourse(accessToken: string, courseId: number): Promise<string> {
         try {
             const payload = await this.jwtService.verify(accessToken, {secret: process.env.AT_SECRET})
             const data = await this.courseRepository.findOne({

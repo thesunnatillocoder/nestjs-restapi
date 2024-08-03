@@ -29,7 +29,7 @@ export class UploadFileController {
     }
 
     @Delete('delete/:fileId')
-    async deleteFile(fileId: number, @Req() req: Request) {
+    async deleteFile(fileId: number, @Req() req: Request): Promise<string> {
         const accessToken = req.headers.authorization.split(' ')[1];
         return this.fileService.deleteFile(accessToken, fileId)
     }

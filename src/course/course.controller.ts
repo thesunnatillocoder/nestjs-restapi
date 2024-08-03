@@ -5,7 +5,7 @@ import { Request } from 'express';
 
 @Controller('course')
 export class CourseController {
-    constructor(private readonly courseService: CourseService) {}
+    constructor(private readonly courseService: CourseService) {};
 
     @Post('add')
     addCourse(@Body() dto: CourseDto, @Req() req: Request) {
@@ -25,13 +25,13 @@ export class CourseController {
     };
 
     @Get('info/:id')
-    getCourseInfo(@Param('id') id: number) {
+    getCourseInfo(@Param('id') id: number): Promise<string> {
         return this.courseService.getCourseInfo(id)
     };
 
     @Delete('del/:id')
-    deleteCourse(@Param('id') id: number, @Req() req: Request) {
+    deleteCourse(@Param('id') id: number, @Req() req: Request): Promise<string> {
         const accessToken = req.headers.authorization.split(' ')[1]
         return this.courseService.deleteCourse(accessToken, id)
-    }
-}
+    };
+};

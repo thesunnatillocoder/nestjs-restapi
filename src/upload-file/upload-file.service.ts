@@ -16,7 +16,7 @@ export class UploadFileService {
         @InjectRepository(File)
         private readonly fileRepository: Repository<File>,
         private readonly jwtService: JwtService,
-    ) {}
+    ) {};
 
 
     async uploadFile(file: Express.Multer.File, accessToken: string) {
@@ -70,10 +70,10 @@ export class UploadFileService {
         } catch {
             return "Do not allow"
         }
-    }
+    };
 
 
-    async deleteFile(accessToken: string, fileId: number) {
+    async deleteFile(accessToken: string, fileId: number): Promise<string> {
         try {
             const payload = this.jwtService.verify(accessToken, { secret: process.env.AT_SECRET });
 
@@ -94,7 +94,7 @@ export class UploadFileService {
         } catch {
             return "Do not allow"
         }
-    }
+    };
 
     async downloadFile(filePath: string) {
         try {
@@ -102,7 +102,7 @@ export class UploadFileService {
           } catch (error) {
             throw new Error('File not found');
           }
-    }
+    };
 
     async updateFile(accessToken: string, fileId: number, filename: string) {
         try {
@@ -119,5 +119,5 @@ export class UploadFileService {
         } catch {
             return 'Do not allow'
         }
-    }
-}
+    };
+};

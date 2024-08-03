@@ -10,7 +10,7 @@ export class UserService {
         @InjectRepository(UsersEntity)
         private readonly userRepository: Repository<UsersEntity>,
         private readonly jwtService: JwtService
-    ) {}
+    ) {};
 
     async getUserInfo(accessToken: string) {
         try {
@@ -27,4 +27,4 @@ export class UserService {
             return 'Do not allow'
         }
     };
-}
+};

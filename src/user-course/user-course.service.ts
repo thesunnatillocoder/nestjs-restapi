@@ -11,7 +11,7 @@ export class UserCourseService {
         @InjectRepository(UserCourse)
         private readonly usercourseRepository: Repository<UserCourse>,
         private readonly jwtService: JwtService
-    ) {}
+    ) {};
 
     async setUserCourse(accessToken: string, ucDto: ucDto) {
         try {
@@ -42,7 +42,7 @@ export class UserCourseService {
         }
     };
 
-    async delUserCourse(accessToken: string, courseId: number) {
+    async delUserCourse(accessToken: string, courseId: number): Promise<string> {
         try {
             const payload = await this.jwtService.verify(accessToken, {secret: process.env.AT_SECRET})
             const data = await this.usercourseRepository.findOne({
@@ -60,5 +60,5 @@ export class UserCourseService {
         } catch {
             return 'Do not a11ow'
         }
-    }
+    };
 };

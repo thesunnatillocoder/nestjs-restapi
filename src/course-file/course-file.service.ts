@@ -11,7 +11,7 @@ export class CourseFileService {
         @InjectRepository(CourseFile)
         private readonly coursefileRepository: Repository<CourseFile>,
         private readonly jwtService: JwtService,
-    ) {}
+    ) {};
 
     async setCourse(cfDto: cfDto, accessToken: string, courseId: number, fileId: number) {
         try {
@@ -45,7 +45,7 @@ export class CourseFileService {
         }
     };
 
-    async deleteCourseFile(accessToken: string, cfId: number) {
+    async deleteCourseFile(accessToken: string, cfId: number): Promise<string> {
         try {
             const payload = await this.jwtService.verify(accessToken, {secret: process.env.AT_SECRET})
 
@@ -64,5 +64,5 @@ export class CourseFileService {
         } catch {
             return "Do not allow"
         }
-    }
+    };
 };
