@@ -1,4 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { File } from "src/upload-file/model/uploadfile.entity";
+import { Course } from "src/course/model/course.entity";
+import { UserCourse } from "src/user-course/model/usercourse.entity";
+
 
 @Entity('users')
 export class UsersEntity {
@@ -19,4 +23,13 @@ export class UsersEntity {
 
     @Column()
     isadmin: boolean;
-}
+
+    @OneToMany(() => File, file => file.user)
+    files: File[];
+
+    @OneToMany(() => Course, course => course.user)
+    courses: Course[];
+
+    @OneToMany(() => UserCourse, userCourse => userCourse.user)
+    userCourses: UserCourse[];
+};

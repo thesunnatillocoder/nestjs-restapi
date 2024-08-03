@@ -13,17 +13,18 @@ export class UserService {
     ) {}
 
     async getUserInfo(accessToken: string) {
-        const payload = await this.jwtService.verify(accessToken, { secret: process.env.AT_SECRET});
-        if(!payload) {
-            throw new ForbiddenException("Not allowed")
-        };
-        const userInfo = await this.userRepository.find({
-            where: {
-                email: payload.email
-            }
-        });
-        delete userInfo[0].hash
-
-        return userInfo
+        try {
+            const payload = await this.jwtService.verify(accessToken, { secret: process.env.AT_SECRET});
+    
+            const userInfo = await this.userRepository.find({
+                where: {
+                    email: payload.email
+                }
+            });
+            delete userInfo[0].hash
+            return userInfo
+        } catch {
+            return 'Do not allow'
+        }
     };
 }
